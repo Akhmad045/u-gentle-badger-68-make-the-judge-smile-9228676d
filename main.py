@@ -22,6 +22,10 @@ def main() -> None:
     os.makedirs("/output", exist_ok=True)
     with open("/output/entry.txt", "w", encoding="utf-8") as f:
         f.write(LINE)
+    with open("/output/entry.txt", "rb") as f:
+        written = f.read()
+    if written.decode("utf-8") != LINE:
+        raise ValueError("written file does not round-trip to the line")
     print(f"wrote {len(LINE)} characters to /output/entry.txt")
 
 
